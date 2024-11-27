@@ -3,32 +3,22 @@ package org.technischools.technibook.users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.technischools.technibook.users.api.CreateUserRequest;
-
-import java.util.Date;
-import java.util.UUID;
+import org.technischools.technibook.users.api.GetUserResponse;
+import org.technischools.technibook.users.mapper.UserMapper;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     public User createUser(CreateUserRequest createUserRequest) {
-        User newUser = User.builder()
-                .createdDate(new Date())
-                .uuid(UUID.randomUUID().toString())
-                .email(createUserRequest.getEmail())
-                .password(createUserRequest.getPassword())
-                .activated(false)
-                .name(createUserRequest.getName())
-                .surname(createUserRequest.getSurname())
-//                .birthDate(createUserRequest.getBirthDate())
-                .sex(createUserRequest.isSex())
-                .build();
-
+        User newUser = userMapper.mapToUser(createUserRequest);
         return userRepository.save(newUser);
     }
 
-    public User getUser(String uuid) {
-        return userRepository.findByUuid(uuid);
+    public GetUserResponse getUser(String uuid) {
+        User user = userRepository.findByUuid(uuid);
+        return userMapper.mapToGetUserResponse(user);
     }
 }

@@ -1,9 +1,9 @@
 package org.technischools.technibook.users;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.technischools.technibook.users.api.CreateUserRequest;
+import org.technischools.technibook.users.api.GetUserResponse;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,7 +17,7 @@ public class UserController {
     }
 
     @GetMapping("/{uuid}")
-    public User getUser(@PathVariable("uuid") String uuid){
+    public GetUserResponse getUser(@PathVariable("uuid") String uuid){
         return userService.getUser(uuid);
     }
 
