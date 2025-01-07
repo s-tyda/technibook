@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.Set;
 
 @Builder
 @Data
@@ -23,4 +24,5 @@ public class User {
     private String surname;
     private Date birthDate;
     private boolean sex;
+    private Set<String> roles;
 }
